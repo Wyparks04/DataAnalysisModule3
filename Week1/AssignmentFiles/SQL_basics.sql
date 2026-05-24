@@ -15,23 +15,35 @@ where city = "Lihue";
 -- Q3) Return the first 5 orders by earliest order_datetime (order_id, order_datetime).
 select order_id, order_datetime
 from orders
-order by order_datetime ASC
+order by order_datetime asc
 limit 5;
 
 -- Q4) Find all products with the word 'Latte' in the name.
 select * from products
 where product_name like "%Latte%";
 -- Q5) Show distinct payment methods used in the dataset.
-
+select distinct payment_method from orders;
 -- Q6) For each store, list its name and city/state (one row per store).
-
+select distinct name, city, state
+from stores;
 -- Q7) From orders, show order_id, status, and a computed column total_items
 --     that counts how many items are in each order.
+select order_id, status, count(*) as total_items
+from orders
+group by order_id, status; 
 
 -- Q8) Show orders placed on '2025-09-04' (any time that day).
+select * from orders
+where order_datetime >= "2025-09-04"
+and order_datetime < "2025-09-05";
 
 -- Q9) Return the top 3 most expensive products (price, name).
+select price, name
+from products
+order by price desc
+limit 3;
 
 -- Q10) Show customer full names as a single column 'customer_name'
 --      in the format "Last, First".
-
+select concat(last_name, ", ", first_name) as customer_name
+from customers;
