@@ -5,10 +5,32 @@ USE coffeeshop_db;
 -- =========================================================
 
 -- Q1) Join products to categories: list product_name, category_name, price.
-
+SELECT 
+    p.name AS product_name,
+    c.name AS category_name,
+    p.price
+FROM products p
+JOIN categories c 
+    ON p.category_id = c.category_id;
+    
 -- Q2) For each order item, show: order_id, order_datetime, store_name,
 --     product_name, quantity, line_total (= quantity * products.price).
 --     Sort by order_datetime, then order_id.
+SELECT 
+    oi.order_id,
+    o.order_datetime,
+    s.name AS store_name,
+    p.name AS product_name,
+    oi.quantity,
+    oi.quantity * p.price AS line_total
+FROM order_items oi
+JOIN orders o 
+    ON oi.order_id = o.order_id
+JOIN stores s
+    ON o.store_id = s.store_id
+JOIN products p
+    ON oi.product_id = p.product_id
+ORDER BY o.order_datetime, oi.order_id;
 
 -- Q3) Customer order history (PAID only):
 --     For each order, show customer_name, store_name, order_datetime,
