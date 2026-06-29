@@ -95,6 +95,8 @@ FROM store_product_totals
 WHERE rn = 1
 ORDER BY store_name;
 
+-- Q6) Inventory check: show rows where on_hand < 12 in any store.
+--     Return store_name, product_name, on_hand.
 SELECT
     s.name AS store_name,
     p.name AS product_name,
@@ -120,6 +122,8 @@ JOIN employees e
 WHERE e.title = 'Manager'
 ORDER BY s.name;
 
+-- Q8) Using a subquery/CTE: list products whose total PAID revenue is above
+--     the average PAID product revenue. Return product_name, total_revenue.
 WITH product_revenue AS (
     SELECT
         p.product_id,
